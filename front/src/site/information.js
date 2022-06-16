@@ -22,7 +22,7 @@ function UserInfo() {
 
   const infoClick = () => {};
   const changeName = (e) => {
-    console.log(e);
+    console.log(e.i);
   };
   const changePrice = (e) => {
     console.log(e);
@@ -31,22 +31,47 @@ function UserInfo() {
     let result = [];
     for (let i = 0; i < number; i++) {
       result.push(
-        <div>
-          <UserName
-            type="text"
-            key={i}
-            onChange={({ e }) => {
-              let lst = [...name];
-              lst[i] = e;
-              setName(lst);
-              console.log(lst);
+        // <div>
+        //   <UserName
+        //     type="text"
+        //     key={i}
+        //     onChange={({ e }) => {
+        //       let lst = [...name];
+        //       lst[i] = e;
+        //       setName(lst);
+        //     }}
+        //   ></UserName>
+        //   <NumberInput
+        //     type="text"
+        //     key={i}
+        //     onChange={changePrice({ i })}
+        //   ></NumberInput>
+        // </div>
+
+        <div key={i}>
+          <div
+            style={{
+              boxSizing: "border-box",
+              width: "50%",
+              float: "left",
+              padding: "10px",
             }}
-          ></UserName>
-          <NumberInput
-            type="text"
-            key={i}
-            onChange={changePrice({ i })}
-          ></NumberInput>
+          >
+            <p>Name</p>
+            <input type="text" onChange={changeName({ i })}></input>
+          </div>
+          <div
+            style={{
+              boxSizing: "border-box",
+              width: "50%",
+              float: "left",
+              padding: "10px",
+            }}
+          >
+            <p>Price</p>
+            <input type="text"></input>
+          </div>
+          <div style={{ clear: "both" }}></div>
         </div>
       );
     }
@@ -59,8 +84,38 @@ function UserInfo() {
   }, []);
   return (
     <>
-      {userInfoShowing()}
-      <SubmitButton onClick={infoClick()}>Submit</SubmitButton>
+      <div
+        style={{
+          backgroundColor: "black",
+          padding: "30px",
+          width: "80%",
+          margin: "auto",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "white",
+            padding: "30px",
+            width: "80%",
+            maxWidth: "600px",
+            margin: "auto",
+          }}
+        >
+          <form>
+            <h3>User Information</h3>
+            {userInfoShowing()}
+            <div>
+              <SubmitButton
+                type="submit"
+                style={{ display: "block", marginLeft: "auto" }}
+                onClick={infoClick()}
+              >
+                SUBMIT
+              </SubmitButton>
+            </div>
+          </form>
+        </div>
+      </div>
     </>
   );
 }

@@ -3,19 +3,22 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { ButtonGroup, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import axios from "axios";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
+  justify-content: center;
+  width: 400px;
   height: 300px;
   margin: 0 auto;
 `;
 
 const SubmitButton = styled.button`
-  background-color: lightblue;
-  border: 30px;
+  background-color: lightgoldenrodyellow;
+  border: none;
+  border-radius: 30px;
   color: black;
-  padding: 15px 32px;
+  margin: 20px;
   text-align: center;
   display: block;
   font-size: 30px;
@@ -52,33 +55,34 @@ function Main() {
   return (
     <>
       <div
-        style={{ width: "100%", height: "80%", backgroundColor: "lightblue" }}
+        style={{
+          width: "30%",
+          height: "40%",
+          backgroundColor: "lightblue",
+          margin: "0 auto",
+          borderRadius: "30px",
+        }}
       >
-        <h2>사용자는 몇 명입니까?</h2>
         <Container>
-          <ButtonGroup>
-            <DropdownButton
-              as={ButtonGroup}
-              title="사용자"
-              id="bg-nested-dropdown"
-            >
-              {Number.map(function (a) {
-                return (
-                  <Dropdown.Item onClick={SubmitConfigure} key={a}>
-                    {a}
-                  </Dropdown.Item>
-                );
-              })}
-            </DropdownButton>
-          </ButtonGroup>
-
-          <SubmitButton onClick={NumberClick}>
-            {/* <Link style={{ textDecoration: "none" }} to="/info">
-              Submit
-            </Link> */}
-            Submit
-          </SubmitButton>
-          <h2>{number}</h2>
+          <h2 style={{ margin: "30px" }}>사용자는 몇 명입니까?</h2>
+          <div style={{ marginLeft: "auto" }}>
+            <ButtonGroup>
+              <DropdownButton
+                as={ButtonGroup}
+                title="사람 수"
+                id="bg-nested-dropdown"
+              >
+                {Number.map(function (a) {
+                  return (
+                    <Dropdown.Item onClick={SubmitConfigure} key={a}>
+                      {a}
+                    </Dropdown.Item>
+                  );
+                })}
+              </DropdownButton>
+            </ButtonGroup>
+          </div>
+          <SubmitButton onClick={NumberClick}>SUBMIT</SubmitButton>
         </Container>
       </div>
     </>
