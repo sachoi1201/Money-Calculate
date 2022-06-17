@@ -18,32 +18,26 @@ const SubmitButton = styled.button`
 
 function UserInfo() {
   const [number, setNumber] = useState(0);
-  const [name, setName] = useState([
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-  ]);
+  const [name, setName] = useState(["", "", "", "", "", "", "", "", "", ""]);
   const [price, setPrice] = useState(["", "", "", "", "", "", "", "", "", ""]);
-  let q = 0;
-  const infoClick = () => {};
-  // const changeName = (e) => {
-  //   console.log(e.i);
-  // };
-  function changeName(e) {
-    console.log(e.target.parentNode.parentNode.className);
-    console.log(e.target.value);
-  }
-  const changePrice = () => {
-    setName(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]);
-    console.log(name);
+  const infoClick = () => {
+    axios
+      .post(
+        "http://localhost:8080/getInfo",
+        {
+          name,
+          price,
+        },
+        {
+          headers: {
+            "Content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      )
+      .then(window.location.replace("/result"));
   };
+
   const userInfoShowing = () => {
     let result = [];
     for (let i = 0; i < number; i++) {
@@ -99,10 +93,7 @@ function UserInfo() {
   };
   useEffect(() => {
     axios.get("http://localhost:8080/getUser").then((res) => {
-      console.log(number);
       setNumber(res.data.userNumber);
-      console.log(res.data.userNumber);
-      console.log(number);
     });
   }, []);
   return (
@@ -127,19 +118,20 @@ function UserInfo() {
           <form>
             <h3>User Information</h3>
             {userInfoShowing()}
-            <div>
-              <SubmitButton
-                type="submit"
-                style={{ display: "block", marginLeft: "auto" }}
-                onClick={infoClick()}
-              >
-                SUBMIT
-              </SubmitButton>
-            </div>
           </form>
+          <div>
+            <SubmitButton
+              type="submit"
+              style={{ display: "block", marginLeft: "auto" }}
+              onClick={infoClick}
+            >
+              SUBMIT
+            </SubmitButton>
+          </div>
         </div>
       </div>
       <h1>{name}</h1>
+      <h1>{price}</h1>
     </>
   );
 }
