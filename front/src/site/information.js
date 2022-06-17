@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { type } from "@testing-library/user-event/dist/type";
 
 const UserName = styled.input``;
 const NumberInput = styled.input``;
@@ -17,38 +18,37 @@ const SubmitButton = styled.button`
 
 function UserInfo() {
   const [number, setNumber] = useState(0);
-  const [name, setName] = useState(["", "", "", "", "", "", "", "", "", ""]);
+  const [name, setName] = useState([
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+  ]);
   const [price, setPrice] = useState(["", "", "", "", "", "", "", "", "", ""]);
-
+  let q = 0;
   const infoClick = () => {};
-  const changeName = (e) => {
-    console.log(e.i);
-  };
-  const changePrice = (e) => {
-    console.log(e);
+  // const changeName = (e) => {
+  //   console.log(e.i);
+  // };
+  function changeName(e) {
+    console.log(e.target.parentNode.parentNode.className);
+    console.log(e.target.value);
+  }
+  const changePrice = () => {
+    setName(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]);
+    console.log(name);
   };
   const userInfoShowing = () => {
     let result = [];
     for (let i = 0; i < number; i++) {
       result.push(
-        // <div>
-        //   <UserName
-        //     type="text"
-        //     key={i}
-        //     onChange={({ e }) => {
-        //       let lst = [...name];
-        //       lst[i] = e;
-        //       setName(lst);
-        //     }}
-        //   ></UserName>
-        //   <NumberInput
-        //     type="text"
-        //     key={i}
-        //     onChange={changePrice({ i })}
-        //   ></NumberInput>
-        // </div>
-
-        <div key={i}>
+        <div key={i} className={i}>
           <div
             style={{
               boxSizing: "border-box",
@@ -58,7 +58,17 @@ function UserInfo() {
             }}
           >
             <p>Name</p>
-            <input type="text" onChange={changeName({ i })}></input>
+            <input
+              type="text"
+              onChange={function (e) {
+                let parentNode = Number(
+                  e.target.parentNode.parentNode.className
+                );
+                let temp = [...name];
+                temp[parentNode] = e.target.value;
+                setName(temp);
+              }}
+            ></input>
           </div>
           <div
             style={{
@@ -69,7 +79,17 @@ function UserInfo() {
             }}
           >
             <p>Price</p>
-            <input type="text"></input>
+            <input
+              type="text"
+              onChange={function (e) {
+                let parentNode = Number(
+                  e.target.parentNode.parentNode.className
+                );
+                let temp = [...price];
+                temp[parentNode] = e.target.value;
+                setPrice(temp);
+              }}
+            ></input>
           </div>
           <div style={{ clear: "both" }}></div>
         </div>
@@ -79,7 +99,10 @@ function UserInfo() {
   };
   useEffect(() => {
     axios.get("http://localhost:8080/getUser").then((res) => {
+      console.log(number);
       setNumber(res.data.userNumber);
+      console.log(res.data.userNumber);
+      console.log(number);
     });
   }, []);
   return (
@@ -116,6 +139,7 @@ function UserInfo() {
           </form>
         </div>
       </div>
+      <h1>{name}</h1>
     </>
   );
 }
