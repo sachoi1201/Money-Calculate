@@ -20,6 +20,7 @@ function UserInfo() {
   const [number, setNumber] = useState(0);
   const [name, setName] = useState(["", "", "", "", "", "", "", "", "", ""]);
   const [price, setPrice] = useState(["", "", "", "", "", "", "", "", "", ""]);
+
   const infoClick = () => {
     axios
       .post(
@@ -130,8 +131,6 @@ function UserInfo() {
           </div>
         </div>
       </div>
-      <h1>{name}</h1>
-      <h1>{price}</h1>
     </>
   );
 }
