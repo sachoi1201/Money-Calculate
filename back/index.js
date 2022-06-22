@@ -19,7 +19,7 @@ function Calculate() {
   for (let i = 0; i < userNumber; i++) {
     sum += Number(userInfoPrice[i]);
   }
-  const average = sum / userNumber;
+  const average = Math.floor(sum / userNumber);
   let haveToGive = [];
   for (let i = 0; i < userNumber; i++) {
     let differ = Number(userInfoPrice[i]) - average;

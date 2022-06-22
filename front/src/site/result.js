@@ -18,21 +18,37 @@ function Result() {
     ["", "", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", "", ""],
   ]);
+  const filtering = (user1) => {
+    let a = [];
+    for (let i = 0; i < userNumber; i++) {
+      if (userToUser[user1][i]) {
+        let b = (
+          <div>
+            {user[i]}한테 {userToUser[user1][i]} 만큼 보내주세요!!
+          </div>
+        );
+
+        a.push(b);
+      }
+    }
+    return a;
+  };
   const userInfoShowing = () => {
     let result = [];
+
     for (let i = 0; i < userNumber; i++) {
       result.push(
         <Card key={i} className={i} border="primary" style={{ width: "18rem" }}>
           <Card.Header>{user[i]}</Card.Header>
           <Card.Body>
-            <Card.Title>Primary Card Title</Card.Title>
-            <Card.Text>{userToUser[i]}</Card.Text>
+            <Card.Text>{filtering(i)}</Card.Text>
           </Card.Body>
         </Card>
       );
     }
     return result;
   };
+
   useEffect(() => {
     axios.get("http://localhost:8080/getResult").then((res) => {
       setUser(res.data.user);
